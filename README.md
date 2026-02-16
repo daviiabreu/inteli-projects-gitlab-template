@@ -73,11 +73,6 @@ Navegue até:
 - **Allowed to merge:** Developers and Maintainers
 - **Allowed to push:** No one (força todas as mudanças através de Merge Requests)
 
-#### Proteger `develop`
-
-- **Allowed to merge:** Developers and Maintainers
-- **Allowed to push:** No one (força todas as mudanças através de Merge Requests)
-
 ---
 
 ## Passo 5: Configurar o Caminho Base da Documentação
