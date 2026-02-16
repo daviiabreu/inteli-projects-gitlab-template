@@ -1,74 +1,118 @@
-# GitLab Project Setup Guide
+# Guia de Configuração do Projeto no GitLab
 
-Follow these steps to configure your GitLab repository with best practices for branching and merge requests.
+Siga estes passos para configurar seu repositório no GitLab com as melhores práticas de branching e merge requests.
 
 ---
 
-## Step 1: Create the `develop` Branch
-First, create the `develop` branch locally and push it to GitLab to establish your development workflow.
+## Passo 1: Criar a Branch `develop`
+
+Primeiro, crie a branch `develop` localmente e envie para o GitLab para estabelecer seu fluxo de desenvolvimento.
 
 ```bash
-# Create and switch to the develop branch
+# Criar e mudar para a branch develop
 git checkout -b develop
 
-# Push the branch and set upstream
+# Enviar a branch e configurar o upstream
 git push -u origin develop
 ```
 
 ---
 
-## Step 2: Configure Merge Request Settings
-Navigate to your project in GitLab, then go to:
+## Passo 2: Configurar Definições de Merge Request
+
+Navegue até o seu projeto no GitLab e vá em:
 **Settings** > **Merge requests**
 
 ### 1. Merge Method
-Select **Fast-forward merge**.
-- **Result:** No merge commits are created. History remains linear.
-- **Note:** If a conflict exists, the user must rebase before merging.
+
+Selecione **Fast-forward merge**.
+
+- **Resultado:** Não são criados commits de merge. O histórico permanece linear.
+- **Nota:** Se houver conflitos, o usuário deve fazer rebase antes do merge.
 
 ### 2. Merge Options
-Activate the following checkboxes:
+
+Ative as seguintes caixas de seleção:
+
 - [x] **Show link to create or view a merge request when pushing from the command line**
 - [x] **Enable "Delete source branch" option by default**
 
 ### 3. Squash Commits
-Under **Squash commits when merging**, select:
-- **Require**: This ensures all commits in a Merge Request are combined into a single clean commit on the target branch.
+
+Em **Squash commits when merging**, selecione:
+
+- **Require**: Isso garante que todos os commits em um Merge Request sejam combinados em um único commit limpo na branch de destino.
 
 ---
 
-## Step 3: Enable Merge Checks
-In the same **Settings** > **Merge requests** page, scroll down to **Merge checks**:
+## Passo 3: Ativar Verificações de Merge
 
-- [x] **Pipelines must succeed**: Prevents merging if the latest pipeline failed or is still running.
-- [ ] **Skipped pipelines are considered successful**: **Leave this unchecked** to ensure no code bypasses the CI checks.
+Na mesma página **Settings** > **Merge requests**, role até **Merge checks**:
+
+- [x] **Pipelines must succeed**: Impede o merge se a última pipeline falhou ou ainda está em execução.
+- [ ] **Skipped pipelines are considered successful**: **Deixe desmarcado** para garantir que nenhum código ignore as verificações de CI.
 
 ---
 
-## Step 4: Branch Configuration & Protection
+## Passo 4: Configuração e Proteção de Branches
 
-### 1. Set the Default Branch
-Navigate to:
+### 1. Definir a Branch Padrão (Default Branch)
+
+Navegue até:
 **Settings** > **Repository** > **Default branch**
-- Ensure the default branch is set to `main`.
 
-### 2. Protect Branches
-Navigate to:
+- Garanta que a branch padrão seja `main`.
+
+### 2. Proteger Branches (Protected Branches)
+
+Navegue até:
 **Settings** > **Repository** > **Protected branches**
 
-#### Protect `main`
-- **Allowed to merge:** Developers and Maintainers
-- **Allowed to push:** No one (forces all changes through Merge Requests)
+#### Proteger `main`
 
-#### Protect `develop`
 - **Allowed to merge:** Developers and Maintainers
-- **Allowed to push:** No one (forces all changes through Merge Requests)
+- **Allowed to push:** No one (força todas as mudanças através de Merge Requests)
+
+#### Proteger `develop`
+
+- **Allowed to merge:** Developers and Maintainers
+- **Allowed to push:** No one (força todas as mudanças através de Merge Requests)
 
 ---
 
-## Step 5: Configure Documentation Base Path
-To ensure the documentation site works correctly when deployed to GitLab Pages, you must update the `basePath` and `assetPrefix` in `docs/next.config.mjs`.
+## Passo 5: Configurar o Caminho Base da Documentação
 
-1. Open `docs/next.config.mjs`.
-2. Replace `/NOME_DO_REPOSITORIO` with your project's path (e.g., `/2026-1a/t12/g05`).
-3. Save the file and commit the changes.
+Para garantir que o site da documentação funcione corretamente quando implantado no GitLab Pages, você deve atualizar o `basePath` e o `assetPrefix` no arquivo `docs/next.config.mjs`.
+
+1. Abra `docs/next.config.mjs`.
+2. Substitua `/NOME_DO_REPOSITORIO` pelo caminho do seu projeto (ex: `/2026-1a/t12/g05`).
+3. Salve o arquivo e faça o commit das mudanças.
+
+---
+
+## Passo 6: Gerenciamento de Releases
+
+Este repositório utiliza um sistema automatizado para criar Releases no GitLab baseado na pasta `releases/`.
+
+### Como criar uma nova Release:
+
+1. Use o arquivo `releases/draft-patch` como template para as notas de atualização.
+2. Quando estiver pronto para lançar, crie um novo arquivo na pasta `releases/` com a versão (ex: `0.1.0` ou `1.0.0`).
+3. Adicione as notas da release dentro desse arquivo.
+4. Faça o merge dessas mudanças na branch `main`.
+5. O CI detectará o novo arquivo e criará automaticamente uma Tag e uma Release oficial no GitLab (**Deploy** > **Releases**).
+
+---
+
+## Passo 7: Estrutura do CI/CD
+
+As pipelines estão divididas em componentes modulares dentro de `.gitlab/ci/`:
+
+- **docs.yml**: Responsável por buildar e publicar a documentação no GitLab Pages.
+- **release.yml**: Automatiza a criação de Releases e Tags no GitLab quando novos arquivos são adicionados à pasta `releases/`.
+- **sync-branches.yml**: Mantém a branch `develop` atualizada com as mudanças da `main` após um merge.
+- **pipeline-check.yml**: Realiza verificações de integridade na pipeline.
+- **variables.yml**: Centraliza as variáveis de ambiente utilizadas no CI.
+- **branch-rules.yml** & **actions-rules.yml**: Definem as condições lógicas de quando cada job deve ser executado (ex: apenas na `main`, apenas se houver mudanças em certas pastas).
+
+Para monitorar as execuções, acesse: **Build** > **Pipelines**.
