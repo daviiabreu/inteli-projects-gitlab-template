@@ -1,109 +1,144 @@
-# [Nome do Projeto]
+# Guia de Configuração do Projeto no GitLab
 
-## [Nome do Grupo]
+Siga estes passos para configurar seu repositório no GitLab com as melhores práticas de branching e merge requests.
 
-<p align="center">
-  <img src="[URL do Logo]" alt="Logo do [Nome do Projeto]" width="600">
-</p>
+---
 
-## Integrantes:
+## Passo 1: Criar a Branch `develop`
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center">
-        <a href="[URL do Perfil do Estudante 1]">
-          <img src="[URL da Imagem do Estudante 1]" style="border-radius: 10%; width: 150px;" alt="[Nome do Estudante 1]"/><br>
-          <sub><b>[Nome do Estudante 1]</b></sub>
-        </a>
-      </td>
-      <td align="center">
-        <a href="[URL do Perfil do Estudante 2]">
-          <img src="[URL da Imagem do Estudante 2]" style="border-radius: 10%; width: 150px;" alt="[Nome do Estudante 2]"/><br>
-          <sub><b>[Nome do Estudante 2]</b></sub>
-        </a>
-      </td>
-      <td align="center">
-        <a href="[URL do Perfil do Estudante 3]">
-          <img src="[URL da Imagem do Estudante 3]" style="border-radius: 10%; width: 150px;" alt="[Nome do Estudante 3]"/><br>
-          <sub><b>[Nome do Estudante 3]</b></sub>
-        </a>
-      </td>
-      <td align="center">
-        <a href="[URL do Perfil do Estudante 4]">
-          <img src="[URL da Imagem do Estudante 4]" style="border-radius: 10%; width: 150px;" alt="[Nome do Estudante 4]"/><br>
-          <sub><b>[Nome do Estudante 4]</b></sub>
-        </a>
-      </td>
-      <td align="center">
-        <a href="[URL do Perfil do Estudante 5]">
-          <img src="[URL da Imagem do Estudante 5]" style="border-radius: 10%; width: 150px;" alt="[Nome do Estudante 5]"/><br>
-          <sub><b>[Nome do Estudante 5]</b></sub>
-        </a>
-      </td>
-      <td align="center">
-        <a href="[URL do Perfil do Estudante 6]">
-          <img src="[URL da Imagem do Estudante 6]" style="border-radius: 10%; width: 150px;" alt="[Nome do Estudante 6]"/><br>
-          <sub><b>[Nome do Estudante 6]</b></sub>
-        </a>
-      </td>
-    </tr>
-  </table>
-</div>
-
-## Professores:
-
-### Orientador(a)
-
-- [[Nome do Orientador]]([URL do LinkedIn do Orientador])
-
-### Instrutores
-
-- [[Nome do Instrutor 1]]([URL do LinkedIn do Instrutor 1])
-- [[Nome do Instrutor 2]]([URL do LinkedIn do Instrutor 2])
-- [[Nome do Instrutor 3]]([URL do LinkedIn do Instrutor 3])
-- [[Nome do Instrutor 4]]([URL do LinkedIn do Instrutor 4])
-- [[Nome do Instrutor 5]]([URL do LinkedIn do Instrutor 5])
-
-## Descrição
-
-[Descrição do projeto]
-
-## Estrutura de Pastas
-
-[Estrutura de pastas do projeto]
-
-## Execução do Projeto
-
-### Documentação
-
-A documentação completa do [Nome do Projeto] pode ser acessada através do link: [Documentação [Nome do Projeto]]([URL da Documentação])
-
-Para executar a documentação localmente:
+Primeiro, crie a branch `develop` localmente e envie para o GitLab para estabelecer seu fluxo de desenvolvimento.
 
 ```bash
-git clone [URL do Repositório]
-cd docs
-npm install
-npm run dev
+# Criar e mudar para a branch develop
+git checkout -b develop
+
+# Enviar a branch e configurar o upstream
+git push -u origin develop
 ```
 
-### Execução Completa
+---
 
-[Instruções de execução aqui]
+## Passo 2: Configurar Definições de Merge Request
 
-## Histórico de Lançamentos
+Navegue até o seu projeto no GitLab e vá em:
+**Settings** > **Merge requests**
 
-### 0.5.0 - Sprint 5
+### 1. Merge Method
 
-### 0.4.0 - Sprint 4
+Selecione **Fast-forward merge**.
 
-### 0.3.0 - Sprint 3
+- **Resultado:** Não são criados commits de merge. O histórico permanece linear.
+- **Nota:** Se houver conflitos, o usuário deve fazer rebase antes do merge.
 
-### 0.2.0 - Sprint 2
+### 2. Merge Options
 
-### 0.1.0 - Sprint 1
+Ative as seguintes caixas de seleção:
 
-## Licença
+- [x] **Show link to create or view a merge request when pushing from the command line**
+- [x] **Enable "Delete source branch" option by default**
 
-<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="[URL do Repositório]">[Nome do Projeto]</a> por <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://www.inteli.edu.br/">Inteli</a>, [Nome do Estudante 1], [Nome do Estudante 2], [Nome do Estudante 3], [Nome do Estudante 4], [Nome do Estudante 5], [Nome do Estudante 6] é licenciado sob a <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Attribution 4.0 International</a>.</p>
+### 3. Squash Commits
+
+Em **Squash commits when merging**, selecione:
+
+- **Require**: Isso garante que todos os commits em um Merge Request sejam combinados em um único commit limpo na branch de destino.
+
+---
+
+## Passo 3: Ativar Verificações de Merge
+
+Na mesma página **Settings** > **Merge requests**, role até **Merge checks**:
+
+- [x] **Pipelines must succeed**: Impede o merge se a última pipeline falhou ou ainda está em execução.
+- [ ] **Skipped pipelines are considered successful**: **Deixe desmarcado** para garantir que nenhum código ignore as verificações de CI.
+
+---
+
+## Passo 4: Configuração e Proteção de Branches
+
+### 1. Definir a Branch Padrão (Default Branch)
+
+Navegue até:
+**Settings** > **Repository** > **Default branch**
+
+- Garanta que a branch padrão seja `main`.
+
+### 2. Proteger Branches (Protected Branches)
+
+Navegue até:
+**Settings** > **Repository** > **Protected branches**
+
+#### Proteger `main`
+
+- **Allowed to merge:** Developers and Maintainers
+- **Allowed to push:** No one (força todas as mudanças através de Merge Requests)
+
+#### Proteger `develop`
+
+- **Allowed to merge:** Developers and Maintainers
+- **Allowed to push:** No one (força todas as mudanças através de Merge Requests)
+
+---
+
+## Passo 5: Configurar o Caminho Base da Documentação
+
+Para garantir que o site da documentação funcione corretamente quando implantado no GitLab Pages, você deve atualizar o `basePath` e o `assetPrefix` no arquivo `docs/next.config.mjs`.
+
+1. Abra `docs/next.config.mjs`.
+2. Substitua `/NOME_DO_REPOSITORIO` pelo caminho do seu projeto (ex: `/2026-1a/t12/g05`).
+3. Salve o arquivo e faça o commit das mudanças.
+
+---
+
+## Passo 6: Organização de Imagens na Documentação
+
+Para manter a organização e o funcionamento correto da documentação, todas as imagens utilizadas devem ser adicionadas na pasta:
+
+```
+docs/public/imagens-aqui.png
+```
+
+### Como referenciar imagens nos arquivos MDX:
+
+```mdx
+![Descrição da imagem](/imagens-aqui.png)
+```
+
+---
+
+## Passo 7: Gerenciamento de Releases
+
+Este repositório utiliza um sistema automatizado para criar Releases no GitLab baseado na pasta `releases/`.
+
+### Como criar uma nova Release:
+
+1. Use o arquivo `releases/draft-patch` como template para as notas de atualização.
+2. Quando estiver pronto para lançar, crie um novo arquivo na pasta `releases/` com a versão (ex: `0.1.0` ou `1.0.0`).
+3. Adicione as notas da release dentro desse arquivo.
+4. Faça o merge dessas mudanças na branch `main`.
+5. O CI detectará o novo arquivo e criará automaticamente uma Tag e uma Release oficial no GitLab (**Deploy** > **Releases**).
+
+---
+
+## Passo 8: Estrutura do CI/CD
+
+As pipelines estão divididas em componentes modulares dentro de `.gitlab/ci/`:
+
+- **docs.yml**: Responsável por buildar e publicar a documentação no GitLab Pages.
+- **release.yml**: Automatiza a criação de Releases e Tags no GitLab quando novos arquivos são adicionados à pasta `releases/`.
+- **sync-branches.yml**: Mantém a branch `develop` atualizada com as mudanças da `main` após um merge.
+- **pipeline-check.yml**: Realiza verificações de integridade na pipeline.
+- **variables.yml**: Centraliza as variáveis de ambiente utilizadas no CI.
+- **branch-rules.yml** & **actions-rules.yml**: Definem as condições lógicas de quando cada job deve ser executado (ex: apenas na `main`, apenas se houver mudanças em certas pastas).
+
+Para monitorar as execuções, acesse: **Build** > **Pipelines**.
+
+---
+
+## Finalizando a Configuração
+
+Após concluir todos os passos acima, você pode remover este guia e restaurar o README padrão do projeto com o seguinte comando:
+
+```bash
+rm README.md && mv TEMPLATE.md README.md
+```
