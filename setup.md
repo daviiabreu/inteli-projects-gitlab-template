@@ -63,3 +63,12 @@ Navigate to:
 #### Protect `develop`
 - **Allowed to merge:** Developers and Maintainers
 - **Allowed to push:** No one (forces all changes through Merge Requests)
+
+---
+
+## Step 5: Configure Documentation Base Path
+To ensure the documentation site works correctly when deployed to GitLab Pages, you must update the `basePath` and `assetPrefix` in `docs/next.config.mjs`.
+
+1. Open `docs/next.config.mjs`.
+2. Replace `/NOME_DO_REPOSITORIO` with your project's path (e.g., `/2026-1a/t12/g05`).
+3. Save the file and commit the changes.
