@@ -2,6 +2,8 @@
 
 Siga estes passos para configurar seu repositório no GitLab com as melhores práticas de branching e merge requests.
 
+Esse repo já vem com template de PR que pode ser visto em `.gitlab/merge_request_templates/default.md`, e dois template de issues em `.gitlab/issue_templates/bug.md` e `.gitlab/issue_templates/feature.md`. Para customizar, basta editar esses arquivos ou criar novos templates seguindo a mesma estrutura.
+
 ---
 
 ## Passo 1: Criar a Branch `develop`
@@ -115,7 +117,6 @@ As pipelines estão divididas em componentes modulares dentro de `.gitlab/ci/`:
 
 - **docs.yml**: Responsável por buildar e publicar a documentação no GitLab Pages.
 - **release.yml**: Automatiza a criação de Releases e Tags no GitLab quando novos arquivos são adicionados à pasta `releases/`.
-- **sync-branches.yml**: Mantém a branch `develop` atualizada com as mudanças da `main` após um merge.
 - **pipeline-check.yml**: Realiza verificações de integridade na pipeline.
 - **variables.yml**: Centraliza as variáveis de ambiente utilizadas no CI.
 - **branch-rules.yml** & **actions-rules.yml**: Definem as condições lógicas de quando cada job deve ser executado (ex: apenas na `main`, apenas se houver mudanças em certas pastas).
