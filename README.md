@@ -37,12 +37,6 @@ Ative as seguintes caixas de seleção:
 - [x] **Show link to create or view a merge request when pushing from the command line**
 - [x] **Enable "Delete source branch" option by default**
 
-### 3. Squash Commits
-
-Em **Squash commits when merging**, selecione:
-
-- **Require**: Isso garante que todos os commits em um Merge Request sejam combinados em um único commit limpo na branch de destino.
-
 ---
 
 ## Passo 3: Ativar Verificações de Merge

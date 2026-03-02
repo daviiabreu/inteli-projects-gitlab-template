@@ -22,26 +22,26 @@ release:create:
       fi
       VERSION=$(basename "$LATEST_RELEASE")
       echo "Checking release for $VERSION"
-      
+
       # Check if release already exists
       EXISTING=$(curl -s --header "JOB-TOKEN: $CI_JOB_TOKEN" \
         "$CI_API_V4_URL/projects/$CI_PROJECT_ID/releases/$VERSION" | jq -r '.tag_name // empty')
-      
+
       if [ -n "$EXISTING" ]; then
         echo "Release $VERSION already exists, skipping"
         exit 0
       fi
-      
+
       echo "Creating release for $VERSION"
-      
+
       # Extract release notes from the file
       RELEASE_NOTES=$(cat "$LATEST_RELEASE")
       echo "Release notes:"
       echo "$RELEASE_NOTES"
-      
+
       # Create release using release-cli
       release-cli create \
         --name "Release $VERSION" \
         --tag-name "$VERSION" \
         --ref "$CI_COMMIT_SHA" \
-        --description "Release $VERSION - See releases/$VERSION for details"
+        --description "$RELEASE_NOTES"
