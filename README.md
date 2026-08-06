@@ -71,13 +71,11 @@ Navegue até:
 
 ---
 
-## Passo 5: Configurar o Caminho Base da Documentação
+## Passo 5: Link da Documentação (GitLab Pages)
 
-Para garantir que o site da documentação funcione corretamente quando implantado no GitLab Pages, você deve atualizar o `basePath` e o `assetPrefix` no arquivo `docs/next.config.mjs`.
+O GitLab do Inteli publica o site em um domínio único, servido na raiz (ex: `https://g02-a0b03e.pages.git.inteli.edu.br`), então não há `basePath` para configurar no `docs/next.config.mjs`.
 
-1. Abra `docs/next.config.mjs`.
-2. Substitua `/NOME_DO_REPOSITORIO` pelo caminho do seu projeto (ex: `/2026-1a/t12/g05`).
-3. Salve o arquivo e faça o commit das mudanças.
+Após o primeiro push na `main` que tocar em `docs/`, o link aparece em **Deploy** > **Pages**.
 
 ---
 

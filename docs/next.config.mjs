@@ -5,9 +5,8 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
   output: 'export',
+  trailingSlash: true,
   reactStrictMode: true,
-  basePath: '/NOME_DO_REPOSITORIO',
-  assetPrefix: '/NOME_DO_REPOSITORIO/',
   images: {
     unoptimized: true,
   },
